@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 public class Runner {
   
-  public static final String REPORT_PATTERN = "Start time: %s, End time: %s, ID: %s, Start full line: %s, End full line: %s.";
-  
   public static void main(String[] args) {
     if (args.length == 0) {
       System.out.println("No target file/dir provided. Exiting...");
@@ -24,10 +22,8 @@ public class Runner {
            .forEach((k, v) -> pairs.addAll(Utils.extractPairs(v, LogType.PATIENT_DISCHARGED,
                                                               LogType.NEW_PATIENT)));
     pairs.sort((a, b) -> {
-      LogEntry first;
-      LogEntry second;
-      first = (a[0] != null) ? a[0] : a[1];
-      second = (b[0] != null) ? b[0] : b[1];
+      LogEntry first = (a[0] != null) ? a[0] : a[1];
+      LogEntry second = (b[0] != null) ? b[0] : b[1];
       return first.getTimestamp().compareTo(second.getTimestamp());
     });
     

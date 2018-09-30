@@ -15,9 +15,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.parser.Runner.REPORT_PATTERN;
-
 public final class Utils {
+  
+  private static final String REPORT_PATTERN = "Start time: %s, End time: %s, ID: %s," +
+          " Start full line: %s, End full line: %s.";
   
   private Utils() {
   
