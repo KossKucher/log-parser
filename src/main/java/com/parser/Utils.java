@@ -9,10 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public final class Utils {
@@ -156,10 +158,11 @@ public final class Utils {
   }
   
   static boolean writeReport(String report, String fileName) {
-    String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).toString()
-                                    .replaceAll(":", "-").split("\\+")[0];
-    String constructedName = fileName + "-" + timestamp + ".csv";
-    Path targetFile = Paths.get(System.getProperty("user.dir"), constructedName);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH.mm.ss",
+                                                              Locale.ENGLISH);
+    String timestamp = ZonedDateTime.now(ZoneId.systemDefault()).format(formatter);
+    String fullName = String.format("%s-[%s].csv", fileName, timestamp);
+    Path targetFile = Paths.get(System.getProperty("user.dir"), fullName);
     boolean result;
     try (BufferedWriter bw = Files.newBufferedWriter(targetFile)) {
       bw.write(report);
