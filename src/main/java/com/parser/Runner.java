@@ -21,11 +21,7 @@ public class Runner {
     entries.stream().collect(Collectors.groupingBy(LogEntry::getId))
            .forEach((k, v) -> pairs.addAll(Utils.extractPairs(v, LogType.PATIENT_DISCHARGED,
                                                               LogType.NEW_PATIENT)));
-    pairs.sort((a, b) -> {
-      LogEntry first = (a[0] != null) ? a[0] : a[1];
-      LogEntry second = (b[0] != null) ? b[0] : b[1];
-      return first.getTimestamp().compareTo(second.getTimestamp());
-    });
+    pairs.sort(Comparator.comparing(e -> ((e[0] != null) ? e[0] : e[1]).getTimestamp()));
     
     //print out
     String report = Utils.makeReport(pairs);

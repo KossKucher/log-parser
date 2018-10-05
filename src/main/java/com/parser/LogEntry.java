@@ -13,7 +13,7 @@ public class LogEntry {
   
   private static final String TIMESTAMP_PATTERN = "^(.+[\\d:]{8} \\d{4})";
   private static final String TIME_PARSE_PATTERN = "MMM d HH:mm:ss yyyy";
-  private static final String ID_PATTERN = "(\\b\\d+-\\w{1,3}-\\w+\\b)";
+  private static final String ID_PATTERN = "(\\b\\d+-\\w+-\\w+\\b)";
   
   private LogType type;
   private String fullLine;
@@ -31,7 +31,7 @@ public class LogEntry {
       throw new RuntimeException("Timestamp pattern matching failed! - Line: " + fullLine);
     }
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIME_PARSE_PATTERN, Locale.ENGLISH);
-    instant = LocalDateTime.parse(timeStamp.replaceAll("  ", " "), formatter)
+    instant = LocalDateTime.parse(timeStamp.replaceAll("[ ]{2,}", " "), formatter)
                            .toInstant(ZoneOffset.UTC);
     matcher = Pattern.compile(ID_PATTERN).matcher(fullLine);
     if (matcher.find()) {

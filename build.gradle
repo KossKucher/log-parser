@@ -2,7 +2,7 @@ apply plugin: 'application'
 mainClassName = "com.parser.Runner"
 
 group 'log-parser'
-version '1.0'
+version '1.1'
 
 sourceCompatibility = 1.8
 
